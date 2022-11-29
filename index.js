@@ -35,7 +35,7 @@ const authenticate = async (req, res, next) => {
         next();
         
     } catch (e) {
-        if(req.url === '/login' || req.url === '/register') {
+        if(req.url === '/login-data' || req.url === '/register' || req.url === '/login') {
             next();
             return;
         }  
@@ -43,7 +43,7 @@ const authenticate = async (req, res, next) => {
     }
 };
 
-app.use(express.static(path.resolve(__dirname, '../client/build')));
+app.use(express.static('build'));
 app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -123,5 +123,5 @@ app.get('/logout', (req, res)=>{
 });
 
 app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+    res.sendFile(path.resolve(__dirname, './build', 'index.html'));
   });
